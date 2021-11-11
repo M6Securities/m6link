@@ -28,6 +28,14 @@
     </div>
   </div>
 
+  <div id="display-link-card" class="card" style="display: none">
+    <div class="card-body">
+      <div id="display-link-card-box">
+
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <script defer>
@@ -54,6 +62,19 @@
               type: 'POST',
               success: function (data) {
                   createToast('Success', data.info, '');
+                  data.shortened_url = data.shortened_url.replace('%2F', '/');
+                  const card = $('#display-link-card');
+                  const cardBox = $('#display-link-card-box');
+
+                  card.show();
+
+                  cardBox.html(`
+                    <a href="${data.shortened_url}" target="_blank" data-external>
+                      ${data.shortened_url}
+                    </a>
+                  `);
+
+
               }
           });
 

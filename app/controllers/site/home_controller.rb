@@ -26,7 +26,7 @@ module Site
       if shortlink.save
         payload = {
           info: 'Created Shortlink',
-          shortened_url: shortcut_url(shortlink.shortcut)
+          shortened_url: shortlink.shortcut_url
         }
         render json: payload, status: :ok
       end

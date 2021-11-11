@@ -33,4 +33,7 @@ class Shortlink < ApplicationRecord
     end
   end
 
+  def shortcut_url
+    "https://#{ENV['SHORT_HOST_URL']}/#{shortcut}"
+  end
 end
