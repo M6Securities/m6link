@@ -67,3 +67,9 @@ gem 'devise'
 
 # UI
 gem 'view_component', require: 'view_component/engine'
+
+# job processing
+gem 'sidekiq'
+gem 'sidekiq-scheduler'
+gem 'sidekiq-status'
+gem 'sidekiq-unique-jobs'

@@ -7,6 +7,7 @@ class CreateShortlinks < ActiveRecord::Migration[6.1]
       t.bigint :clicks, default: 0
 
       t.index :shortcut, unique: true
+      t.index :url, unique: true
 
       t.timestamps
     end

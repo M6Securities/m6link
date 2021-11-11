@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2021_11_11_033220) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["shortcut"], name: "index_shortlinks_on_shortcut", unique: true
+    t.index ["url"], name: "index_shortlinks_on_url", unique: true
   end
 
 end
