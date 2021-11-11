@@ -5,6 +5,8 @@ class Shortlink < ApplicationRecord
 
   EXCLUDE_LIST = %w[app admin site].freeze
 
+  after_save :cache_self
+
   validates :shortcut,
             presence: true,
             uniqueness: true
@@ -36,4 +38,27 @@ class Shortlink < ApplicationRecord
   def shortcut_url
     "https://#{ENV['SHORT_HOST_URL']}/#{shortcut}"
   end
+
+  def self.cache_key(shortcut)
+    "shortlink_#{shortcut}"
+  end
+
+  def cache_key
+    Shortlink.cache_key(shortcut)
+  end
+
+  # caching methods
+  #
+  def cache_all
+    Shortlink.all.each do |s|
+      Rails.cache.write(s.cache_key, s.url)
+    end
+  end
+
+  def cache_self
+    Rails.cache.write(cache_key, url)
+    puts 'cached'
+  end
+
+
 end
