@@ -1,4 +1,9 @@
+# frozen_string_literal: true
+
+# shortlink model
 class Shortlink < ApplicationRecord
+
+  EXCLUDE_LIST = %w[app admin].freeze
 
   validates :shortcut,
             presence: true,
@@ -17,7 +22,9 @@ class Shortlink < ApplicationRecord
 
   def self.generate_shortcut
     # 5 digits long should be enough
-    SecureRandom.alphanumeric 5
+    shortcut = SecureRandom.alphanumeric 5
+
+    generate_shortcut if EXCLUDE_LIST.include? shortcut
   end
 
 end

@@ -61,3 +61,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'strong_migrations'
 
 gem 'devise'
+
+# UI
+gem 'view_component', require: 'view_component/engine'
