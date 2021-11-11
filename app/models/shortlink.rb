@@ -11,7 +11,7 @@ class Shortlink < ApplicationRecord
   validates :url,
             presence: true,
             format: {
-              with: %r{^(http|https)://[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(/.*)?$}ix,
+              with: URL_REGEX,
               message: 'not a url'
             }
   validates :clicks,

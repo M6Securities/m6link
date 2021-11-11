@@ -14,9 +14,10 @@
       </p>
 
       <form id="shortlink-form">
+        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="https://www.google.com" aria-describedby="shortlink-form-submit">
+          <input type="text" class="form-control" name="create[url]" id="create-url" placeholder="https://www.google.com" aria-describedby="shortlink-form-submit">
           <button type="button" class="btn btn-success waves-effect" id="shortlink-form-submit" onclick="indexPage.submitShortlink()">
             Go
           </button>
@@ -33,6 +34,42 @@
   indexPage = {
       submitShortlink: function () {
           console.log('here');
+
+          const formURL = $('#create-url').val();
+
+          if (!(/<%= URL_REGEX %>/.test(formURL))) {
+              console.log('invalid');
+
+              return;
+          }
+
+
+          let form = document.getElementById('shortlink-form');
+          let url = '<%= site_create_shortlink_path %>';
+          let formData = new FormData(form);
+
+          let postForm = $.ajax({
+              url: url,
+              data: formData,
+              cache: false,
+              processData: false,
+              contentType: false,
+              type: 'POST',
+              success: function (data) {
+                  submitButton.attr('disabled', false);
+                  createToast('<%= t 'global.forms.errors.submission_success' %>', data.info, '');
+                  window.location.href = data.payment_url;
+              }
+          });
+
+          postForm.fail(function (data) {
+              submitButton.attr('disabled', false);
+              if (data.responseJSON === undefined) {
+                  createToast('', '<%= t 'global.forms.errors.unknown_error' %>', 'error');
+              } else {
+                  createToast('', data.responseJSON.info, 'error');
+              }
+          });
       }
   }
 </script>

@@ -3,6 +3,10 @@ Rails.application.routes.draw do
 
   root 'site/home#index'
 
+  namespace :site do
+    match '/create_shortlink' => 'home#create_shortlink', via: %i[post put patch]
+  end
+
   # this must be the very last
   # get '/:shortcut'
 end
