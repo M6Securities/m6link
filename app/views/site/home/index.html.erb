@@ -30,9 +30,32 @@
 
   <div id="display-link-card" class="card" style="display: none">
     <div class="card-body">
+
+      <h4 class="card-title mb-1">
+        Result
+      </h4>
+
       <div id="display-link-card-box" class="row">
 
       </div>
+
+      <hr>
+
+      <div class="d-flex justify-content-center">
+        <div style="width: min-content;">
+          <canvas id="qr-code"></canvas>
+
+          <a class="btn btn-primary w-100" id="qr-code-download" download data-internal style="display: none;">
+            <i data-feather='download-cloud'></i> Download
+          </a>
+        </div>
+      </div>
+
+
+
+
+
+
     </div>
   </div>
 
@@ -69,17 +92,27 @@
                   card.show();
 
                   cardBox.html(`
-                    <div class="col-12 col-lg-6">
-                      <a href="${data.shortened_url}" target="_blank" data-external>
+                    <div class="d-flex">
+                      <a href="${data.shortened_url}" target="_blank" data-external style="line-height: 38px;">
                         ${data.shortened_url}
                       </a>
-                    </div>
-                    <div class="col-12 col-lg-6">
-                      <a href="${data.details_path}" class="btn btn-primary">
+
+                      <a href="${data.details_path}" class="btn btn-primary ms-1">
                         Details
                       </a>
                     </div>
                   `);
+
+                  const downloadButton = $('#qr-code-download');
+                  const qr = new QRious({
+                      element: document.getElementById('qr-code'),
+                      value: data.shortened_url,
+                      size: 400,
+                      level: 'Q' //https://blog.qrstuff.com/2011/12/14/qr-code-error-correction
+                  });
+
+                  downloadButton.attr('href', qr.toDataURL());
+                  downloadButton.show();
 
 
               }

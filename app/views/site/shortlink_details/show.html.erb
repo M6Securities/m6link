@@ -64,12 +64,46 @@
         </div>
       </div>
 
+      <div class="col-12 col-md-4 col-lg-3">
+        <div class="card">
+
+          <div class="card-body">
+
+            <div class="d-flex justify-content-between mb-1">
+
+              <h4 class="card-title mb-1">
+                QR Code
+              </h4>
+
+              <a class="btn btn-primary" id="qr-code-download" download data-internal style="display: none;">
+                <i data-feather='download-cloud'></i> Download
+              </a>
+
+            </div>
+
+            <canvas id="qr-code" class="w-100"></canvas>
+
+          </div>
+        </div>
+      </div>
+
     </div>
 
   </div>
 
   <script defer>
+    $(function () {
+        const downloadButton = $('#qr-code-download');
+        const qr = new QRious({
+            element: document.getElementById('qr-code'),
+            value: '<%= @shortlink.shortcut_url %>',
+            size: 400,
+            level: 'Q' //https://blog.qrstuff.com/2011/12/14/qr-code-error-correction
+        });
 
+        downloadButton.attr('href', qr.toDataURL());
+        downloadButton.show();
+    });
   </script>
 
 <% end %>
