@@ -5,7 +5,8 @@ class Shortlink < ApplicationRecord
 
   EXCLUDE_LIST = %w[app admin site].freeze
 
-  after_save :cache_self
+  after_commit :cache_self
+  after_destroy :destroy_cache_self
 
   validates :shortcut,
             presence: true,
@@ -58,6 +59,10 @@ class Shortlink < ApplicationRecord
   def cache_self
     Rails.cache.write(cache_key, url)
     puts 'cached'
+  end
+
+  def destroy_cache_self
+    Rails.cache.delete(cache_key)
   end
 
 

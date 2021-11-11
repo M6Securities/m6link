@@ -4,6 +4,9 @@
 
 * Ruby version `3.0.2`
 
+* Dependencies
+  * Redis is required for caching (the entire project relies on caching for speed)
+
 * Environment Variables
 ```yaml
 HOST_URL: m6link.com # standard host # required
