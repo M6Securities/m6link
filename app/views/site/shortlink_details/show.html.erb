@@ -1,0 +1,75 @@
+<% cache @shortlink do %>
+
+  <div class="container-lg">
+
+    <h1 class="text-center mb-3 display-2">
+      Details
+    </h1>
+
+    <div class="card">
+      <div class="card-body">
+
+        <p>
+          <b>Shortened Link:</b>
+          <a href="<%= @shortlink.shortcut_url %>" target="_blank" data-external>
+            <%= @shortlink.shortcut_url %>
+          </a>
+        </p>
+
+        <p>
+          <b>Target Link:</b>
+          <a href="<%= @shortlink.url %>" target="_blank" data-external>
+            <%= @shortlink.url %>
+          </a>
+        </p>
+
+
+
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="col-4">
+        <div class="card">
+
+          <div class="card-body">
+
+            <h4 class="card-title">
+              Created At
+            </h4>
+
+            <p>
+              <%= @shortlink.created_at %>
+            </p>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="card">
+
+          <div class="card-body">
+
+            <h4 class="card-title">
+              Number of clicks
+            </h4>
+
+            <p>
+              <%= @shortlink.clicks %>
+            </p>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script defer>
+
+  </script>
+
+<% end %>

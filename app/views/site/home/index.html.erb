@@ -30,7 +30,7 @@
 
   <div id="display-link-card" class="card" style="display: none">
     <div class="card-body">
-      <div id="display-link-card-box">
+      <div id="display-link-card-box" class="row">
 
       </div>
     </div>
@@ -69,9 +69,16 @@
                   card.show();
 
                   cardBox.html(`
-                    <a href="${data.shortened_url}" target="_blank" data-external>
-                      ${data.shortened_url}
-                    </a>
+                    <div class="col-12 col-lg-6">
+                      <a href="${data.shortened_url}" target="_blank" data-external>
+                        ${data.shortened_url}
+                      </a>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                      <a href="${data.details_path}" class="btn btn-primary">
+                        Details
+                      </a>
+                    </div>
                   `);
 
 

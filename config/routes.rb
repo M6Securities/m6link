@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   namespace :site do
     match '/create_shortlink' => 'home#create_shortlink', via: %i[post put patch]
+
+    resources :shortlink_details, only: :show
   end
 
   # this must be the very last
