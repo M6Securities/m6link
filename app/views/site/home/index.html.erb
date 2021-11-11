@@ -1,3 +1,40 @@
-<h1>
-  Yo
-</h1>
+<% cache do %>
+
+<div class="container-lg">
+
+  <h1 class="text-center mb-3 display-4">
+    M6 Link Shortener
+  </h1>
+
+  <div class="card">
+    <div class="card-body">
+
+      <p>
+        Generate a shortened link.
+      </p>
+
+      <form id="shortlink-form">
+
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="https://www.google.com" aria-describedby="shortlink-form-submit">
+          <button type="button" class="btn btn-success waves-effect" id="shortlink-form-submit" onclick="indexPage.submitShortlink()">
+            Go
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+</div>
+
+<script defer>
+  indexPage = {
+      submitShortlink: function () {
+          console.log('here');
+      }
+  }
+</script>
+
+<% end %>
