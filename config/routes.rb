@@ -8,5 +8,5 @@ Rails.application.routes.draw do
   end
 
   # this must be the very last
-  # get '/:shortcut'
+  get '/:shortcut' => 'shortcut#link', as: :shortcut
 end

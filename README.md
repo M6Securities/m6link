@@ -1,24 +1,11 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
 
-* Ruby version
+* Ruby version `3.0.2`
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Environment Variables
+```yaml
+HOST_URL: m6link.com # standard host # required
+SHORT_HOST_URL: m6l.ink # host for the shortened links # required # if you don't have one it can be the same as HOST_URL
+```

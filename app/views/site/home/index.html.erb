@@ -33,13 +33,10 @@
 <script defer>
   indexPage = {
       submitShortlink: function () {
-          console.log('here');
-
           const formURL = $('#create-url').val();
 
-          if (!(/<%= URL_REGEX %>/.test(formURL))) {
-              console.log('invalid');
-
+          if (!(/^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/.test(formURL))) {
+              createToast('Invalid URL', '', 'error');
               return;
           }
 
@@ -56,16 +53,13 @@
               contentType: false,
               type: 'POST',
               success: function (data) {
-                  submitButton.attr('disabled', false);
-                  createToast('<%= t 'global.forms.errors.submission_success' %>', data.info, '');
-                  window.location.href = data.payment_url;
+                  createToast('Success', data.info, '');
               }
           });
 
           postForm.fail(function (data) {
-              submitButton.attr('disabled', false);
               if (data.responseJSON === undefined) {
-                  createToast('', '<%= t 'global.forms.errors.unknown_error' %>', 'error');
+                  createToast('', 'Unknown Error', 'error');
               } else {
                   createToast('', data.responseJSON.info, 'error');
               }

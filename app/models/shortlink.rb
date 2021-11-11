@@ -3,15 +3,17 @@
 # shortlink model
 class Shortlink < ApplicationRecord
 
-  EXCLUDE_LIST = %w[app admin].freeze
+  EXCLUDE_LIST = %w[app admin site].freeze
 
   validates :shortcut,
             presence: true,
             uniqueness: true
   validates :url,
             presence: true,
+            uniqueness: true,
             format: {
               with: URL_REGEX,
+              multiline: true,
               message: 'not a url'
             }
   validates :clicks,
@@ -24,7 +26,11 @@ class Shortlink < ApplicationRecord
     # 5 digits long should be enough
     shortcut = SecureRandom.alphanumeric 5
 
-    generate_shortcut if EXCLUDE_LIST.include? shortcut
+    if EXCLUDE_LIST.include? shortcut
+      generate_shortcut
+    else
+      shortcut
+    end
   end
 
 end
