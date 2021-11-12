@@ -4,8 +4,8 @@ module Site
   class RankingController < SiteController
 
     def index
-      @top = nil
-      @new = nil
+      @top = Shortlink.all.order(clicks: :desc).limit(10)
+      @new = Shortlink.all.order(created_at: :desc).limit(10)
     end
 
   end
