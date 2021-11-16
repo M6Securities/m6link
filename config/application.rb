@@ -33,5 +33,6 @@ module M6link
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.hosts << ENV['HOST_URL']
+    config.hosts << ENV['SHORT_HOST_URL']
   end
 end
