@@ -1,0 +1,121 @@
+<% cache do %>
+
+  <div class="container-lg">
+
+    <h1 class="text-center mb-3 display-2">
+      Link Rankings
+    </h1>
+
+    <div class="row">
+
+      <div class="col-12 col-lg-6 col-md-12">
+
+        <div class="container-sm">
+          <h4 class="card-title">
+            Top Clicked Links
+          </h4>
+
+          <% @top.each do |shortlink| %>
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between">
+
+                  <div style="max-width: 50%;">
+                    <a href="<%= shortlink.url %>" target="_blank" data-external>
+                      <p class="my-0" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 38px;">
+                        <%= shortlink.url %>
+                      </p>
+                    </a>
+                  </div>
+
+                  <div>
+
+                    <div class="d-flex justify-content-end">
+
+                      <table>
+                        <tr>
+                          <td>
+                            <span class="badge bg-primary me-3 px-1">
+                              <%= shortlink.clicks %>
+                            </span>
+                          </td>
+                          <td>
+                            <a href="<%= site_shortlink_detail_path(shortlink.shortcut) %>" class="btn btn-outline-primary" target="_blank" data-external>
+                              Details
+                            </a>
+                          </td>
+                        </tr>
+                      </table>
+
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          <% end %>
+
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-6 col-md-12">
+
+        <div class="container-sm">
+          <h4 class="card-title">
+            New Links
+          </h4>
+
+          <% @new.each do |shortlink| %>
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between">
+
+                  <div style="max-width: 50%;">
+                    <a href="<%= shortlink.url %>" target="_blank" data-external>
+                      <p class="my-0" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 38px;">
+                        <%= shortlink.url %>
+                      </p>
+                    </a>
+                  </div>
+
+                  <div>
+
+                    <div class="d-flex justify-content-end">
+
+                      <table>
+                        <tr>
+                          <td>
+                            <span class="badge bg-primary me-3 px-1">
+                              <%= time_ago_in_words(shortlink.created_at) %> ago
+                            </span>
+                          </td>
+                          <td>
+                            <a href="<%= site_shortlink_detail_path(shortlink.shortcut) %>" class="btn btn-outline-primary" target="_blank" data-external>
+                              Details
+                            </a>
+                          </td>
+                        </tr>
+                      </table>
+
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          <% end %>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script defer>
+
+  </script>
+
+<% end %>

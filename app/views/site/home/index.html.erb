@@ -1,0 +1,132 @@
+<% cache do %>
+
+<div class="container-lg">
+
+  <h1 class="text-center mb-3 display-4">
+    M6 Link Shortener
+  </h1>
+
+  <div class="card">
+    <div class="card-body">
+
+      <p>
+        Generate a shortened link.
+      </p>
+
+      <form id="shortlink-form">
+        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
+        <div class="input-group">
+          <input type="text" class="form-control" name="create[url]" id="create-url" placeholder="https://www.google.com" aria-describedby="shortlink-form-submit">
+          <button type="button" class="btn btn-success waves-effect" id="shortlink-form-submit" onclick="indexPage.submitShortlink()">
+            Go
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <div id="display-link-card" class="card" style="display: none">
+    <div class="card-body">
+
+      <h4 class="card-title mb-1">
+        Result
+      </h4>
+
+      <div id="display-link-card-box" class="row">
+
+      </div>
+
+      <hr>
+
+      <div class="d-flex justify-content-center">
+        <div style="width: min-content;">
+          <canvas id="qr-code"></canvas>
+
+          <a class="btn btn-primary w-100" id="qr-code-download" download data-internal style="display: none;">
+            <i data-feather='download-cloud'></i> Download
+          </a>
+        </div>
+      </div>
+
+
+
+
+
+
+    </div>
+  </div>
+
+</div>
+
+<script defer>
+  indexPage = {
+      submitShortlink: function () {
+          const formURL = $('#create-url').val();
+
+          if (!(/^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/.test(formURL))) {
+              createToast('Invalid URL', '', 'error');
+              return;
+          }
+
+
+          let form = document.getElementById('shortlink-form');
+          let url = '<%= site_create_shortlink_path %>';
+          let formData = new FormData(form);
+
+          let postForm = $.ajax({
+              url: url,
+              data: formData,
+              cache: false,
+              processData: false,
+              contentType: false,
+              type: 'POST',
+              success: function (data) {
+                  createToast('Success', data.info, '');
+                  data.shortened_url = data.shortened_url.replace('%2F', '/');
+                  const card = $('#display-link-card');
+                  const cardBox = $('#display-link-card-box');
+
+                  card.show();
+
+                  cardBox.html(`
+                    <div class="d-flex">
+                      <a href="${data.shortened_url}" target="_blank" data-external style="line-height: 38px;">
+                        ${data.shortened_url}
+                      </a>
+
+                      <a href="${data.details_path}" class="btn btn-primary ms-1">
+                        Details
+                      </a>
+                    </div>
+                  `);
+
+                  const downloadButton = $('#qr-code-download');
+                  const qr = new QRious({
+                      element: document.getElementById('qr-code'),
+                      value: data.shortened_url,
+                      size: 400,
+                      level: 'Q' //https://blog.qrstuff.com/2011/12/14/qr-code-error-correction
+                  });
+
+                  downloadButton.attr('href', qr.toDataURL());
+                  downloadButton.show();
+
+
+              }
+          });
+
+          postForm.fail(function (data) {
+              if (data.responseJSON === undefined) {
+                  createToast('', 'Unknown Error', 'error');
+              } else {
+                  createToast('', data.responseJSON.info, 'error');
+              }
+          });
+      }
+  }
+</script>
+
+<% end %>
