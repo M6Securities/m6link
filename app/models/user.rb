@@ -16,5 +16,14 @@ class User < ApplicationRecord
          :session_limitable,
          :expirable
 
+  validates :email,
+            presence: true,
+            uniqueness: true,
+            format: {
+              with: URI::MailTo::EMAIL_REGEXP,
+              multiline: true,
+              message: 'Invalid email'
+            }
+
 
 end
