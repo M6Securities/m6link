@@ -104,6 +104,8 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-security (0.16.0)
+      devise (>= 4.3.0, < 5.0)
     e2mmap (0.1.0)
     erubi (1.10.0)
     et-orbi (1.2.6)
@@ -280,6 +282,7 @@ DEPENDENCIES
   byebug
   capybara (>= 3.26)
   devise
+  devise-security
   figaro
   jbuilder (~> 2.7)
   listen (~> 3.3)
